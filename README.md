@@ -1,7 +1,8 @@
 # ABCM - Attraction basin Consistency Drug Design Redefines Chemical Space Exploration in Target-Specific Drug Discovery
 
   
-**Figure 1.** Overview of the Attraction basin Consistency Drug design (ABCD) framework.
+![Figure 1: ABCD framework overview](fig_abcd.png)
+
 
 Existing de novo drug design methods still generate molecules in a progressive and path-dependent manner (Fig. c). In contrast, real-world drug design often follows a leap-like logic, whereby medicinal chemists directly design lead compounds based on multiple promising intermediates, rather than relying on progressive stepwise optimization. Motivated by this, we developed a novel framework, termed Attraction basin Consistency Drug design (ABCD) (Fig. a and Fig. b), which aims to simulate this leap-like molecular design process by constructing an attraction basin state pool and learning a consistency mapping from these states toward active compounds.
 
