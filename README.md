@@ -12,10 +12,10 @@ Existing de novo drug design methods still generate molecules in a progressive a
 ABCM/
 ├── dataset/                    # State pool, training sampling, pocket encoding
 │   ├── state_pool.py           
-│   ├── sampling.py             # mapping groups + trajectory chains
-│   ├── pool_core.py            # pool types + RDKit I/O
-│   ├── protein_data.py         # CrossDock discovery + pocket coords / task_vec
-│   ├── pool_builders.py        # geo / scaffold / rxn / local MMP / pharm pool sources
+│   ├── sampling.py            
+│   ├── pool_core.py           
+│   ├── protein_data.py         
+│   ├── pool_builders.py        
 ├── model/                      
 │   ├── consistency_operator.py  
 │   ├── encoders.py             
@@ -25,12 +25,12 @@ ABCM/
 ├── utils/
 │   ├── distances.py            # distance metrics
 │   ├── losses.py               # training losses
-│   └── pkt_fit.py              # pocket fit (pharm/shape/fit/clash)
-├── config.py                   # onfig hyperparameters
-├── mol_state.py                # MolState representation
-├── train.py                    # Training script
-├── generate_molecules.py       # Sampling script
-├── environment.yaml            # Conda environment 
+│   └── pkt_fit.py              # pocket fit
+├── config.py                   # config 
+├── mol_state.py                
+├── train.py                    
+├── generate_molecules.py       
+├── environment.yaml            
 ├── fig_abcd.png                
 └── README.md                   
 ```
