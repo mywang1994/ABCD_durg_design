@@ -1,0 +1,17 @@
+name: abcd
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy>=1.24
+  - scipy>=1.10
+  - networkx>=2.8
+  - rdkit>=2023.9
+  - openbabel=3.2.1
+  - plip=3.0.1
+  - pip:
+      - -r requirements.txt
+      - vina==1.2.7
+      - meeko==0.8.0
+      - gemmi>=0.7

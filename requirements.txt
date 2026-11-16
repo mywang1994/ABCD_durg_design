@@ -1,0 +1,11 @@
+# Python 3.11
+torch>=2.2
+numpy>=1.24
+scipy>=1.10
+networkx>=2.8
+rdkit>=2023.9
+e3nn==0.6.0
+egnn-pytorch==0.2.8
+einops>=0.6
+crem==0.2.16
+scaffoldgraph==1.1.2

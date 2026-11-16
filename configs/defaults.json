@@ -1,0 +1,186 @@
+{
+  "abcm_config": {
+    "schema_version": 2,
+    "max_nodes": 128,
+    "z_dim": 32,
+    "edge_T": 20,
+    "joint_steps": 3,
+    "pocket_neighbors": 32,
+    "pocket_step_scale": 0.2,
+    "num_anchors": 4,
+    "alpha_prior": 0.5,
+    "initialization_group_fraction": 0.25,
+    "group_train": true,
+    "tau": 0.92,
+    "delta_edit": 2,
+    "grp_min": 3,
+    "grp_max": 6,
+    "group_max_tries": 50,
+    "pocket_min": null,
+    "lambda_geom": 5.0,
+    "w_target": 1.0,
+    "single_target_fraction": 0.0,
+    "w_basin": 0.3,
+    "w_pocket": 0.1,
+    "w_chem": 0.1,
+    "b_seed": 0.15,
+    "g_init": 0.15,
+    "seed_match_samples": 2,
+    "w_valence": 1.0,
+    "w_atom": 1.0,
+    "w_charge": 0.2,
+    "w_hydrogen": 0.2,
+    "w_adjacency": 0.2,
+    "w_edge": 0.0,
+    "w_edge_op": 0.0,
+    "w_bond": 1.0,
+    "w_bond_length": 0.0,
+    "w_count": 0.2,
+    "w_feature": 0.0,
+    "w_embedding": 0.0,
+    "match_position_weight": 1.0,
+    "match_atom_weight": 1.0,
+    "task_dropout": 0.5,
+    "molecular_distance": {
+      "w_topo": 0.25,
+      "w_scaffold": 0.25,
+      "w_pharm": 0.25,
+      "w_geom": 0.25,
+      "fp_radius": 2,
+      "fp_nbits": 2048
+    },
+    "circles_threshold": null
+  },
+  "train_config": {
+    "batch_size": 4,
+    "node_feat_dim": 16,
+    "cond_dim": 64,
+    "pocket_atoms": 2048,
+    "test_pts": 64
+  },
+  "architecture": {
+    "hidden": 512,
+    "layers": 8,
+    "pocket_hidden": 512,
+    "pocket_layers": 8,
+    "prior_hidden": 512,
+    "radius_cutoff_angstrom": 6.0,
+    "coordinate_step_scale": 0.1,
+    "seed_initial_noise_angstrom": 0.15,
+    "output_slot_noise_angstrom": 0.2,
+    "pocket_feature_dim": 45,
+    "graph_encoder_training": "fixed_initialization_v1"
+  },
+  "training_cli": {
+    "epochs": 150,
+    "learning_rate": 0.0014,
+    "optimizer": "AdamW",
+    "optimizer_weight_decay": 0.01,
+    "requested_groups_per_complex_per_epoch": 512,
+    "pool_size_limit": 128,
+    "seed": 0,
+    "pocket_radius_angstrom": 6.0
+  },
+  "pocket_surrogate": {
+    "wp": 0.35,
+    "ws": 0.4,
+    "wf": 0.0,
+    "wc": 0.35,
+    "wv": 0.0,
+    "clash_k": 50.0,
+    "shape_sigma_angstrom": 2.0,
+    "pharmacophore_sigma_angstrom": 1.5,
+    "pharmacophore_channels": [
+      "hydrophobic",
+      "aromatic",
+      "acceptor",
+      "donor"
+    ]
+  },
+  "chemical_loss": {
+    "valence_smooth_l1_beta": 1.0
+  },
+  "edit_search": {
+    "timeout_seconds": 1,
+    "matches_per_molecule": 16,
+    "max_search_atoms": 256
+  },
+  "data_pipeline": {
+    "pocket10_root": "dataset/data/crossdocked_v1.1_rmsd1.0_pocket10",
+    "split_file": "dataset/data/split_by_name.pt",
+    "split": "train",
+    "mmp_db": "dataset/data/mmp.db",
+    "mmp_mode": "required",
+    "pool_cache_dir": null
+  },
+  "initialization_training": {
+    "raw_groups_per_attempt": 1,
+    "scaffold_pose_max_displacement_angstrom": 0.15,
+    "scaffold_pose_max_rotation_degrees": 5.0
+  },
+  "geometry_validation": {
+    "thresholds": {
+      "bond_tolerance": 0.25,
+      "angle_tolerance": 0.25,
+      "clash_tolerance": 0.3,
+      "planar_tolerance_angstrom": 0.25,
+      "receptor_clash_fraction": 0.75
+    }
+  },
+  "pool_builder_defaults": {
+    "seed": 0,
+    "counts": {
+      "local": 15,
+      "pharm": 10,
+      "scaffold": 10,
+      "rxn": 5,
+      "geo": 15
+    },
+    "geo_sigma": 0.15,
+    "local_tries": 128,
+    "t_min": 0.15,
+    "t_max": 0.98,
+    "pocket_min": null,
+    "max_pool": 512,
+    "mmp_db": null,
+    "local_mmp": null
+  },
+  "evaluation": {
+    "properties": {
+      "sa_range": [1, 10],
+      "qed_range": [0, 1],
+      "lipinski": {"hbd_max": 5, "hba_max": 10, "mw_upper_exclusive": 500,
+                   "logp_max": 5, "rotatable_bonds_max": 10, "tpsa_max": 140},
+      "rotatable_bonds": "RDKit Strict"
+    },
+    "docking": {
+      "scoring_function": "vina",
+      "exhaustiveness": 8,
+      "n_poses": 1,
+      "cpu": 1,
+      "seed": 42,
+      "box_padding_per_side": 5.0,
+      "minimum_box_size": 20.0,
+      "receptor_preparation": "Meeko residue templates, alternate location A",
+      "embedding": "ETKDGv3",
+      "le_definition": "-Vina affinity / number of heavy atoms"
+    },
+    "bottleneck": {
+      "fingerprint": "MACCS",
+      "nbits": 167
+    },
+    "morgan": {
+      "radius": 2,
+      "fpSize": 2048,
+      "includeChirality": false,
+      "useBondTypes": true,
+      "countSimulation": false,
+      "includeRingMembership": true,
+      "includeRedundantEnvironments": false
+    },
+    "circles": {
+      "threshold": 0.75,
+      "seed": 0
+    }
+  }
+}
